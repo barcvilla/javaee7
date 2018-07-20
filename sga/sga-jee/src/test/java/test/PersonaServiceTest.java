@@ -29,7 +29,7 @@ public class PersonaServiceTest {
         EJBContainer contenedor = EJBContainer.createEJBContainer();
         /*buscamos nuestro ejb PersonaServiceImpl mediante nuestra interface PersonaServiceLocal*/
         personaServiceLocal = (PersonaServiceLocal)
-                contenedor.getContext().lookup("java:global/classes/PersonaServiceImpl!mx.com.sga.servicio.PersonaServiceLocal");
+                contenedor.getContext().lookup("java:global/classes/PersonaServiceImpl!mx.com.gm.sga.servicio.PersonaServiceLocal");
     }
     
     @Test
