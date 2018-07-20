@@ -7,12 +7,14 @@ package mx.com.gm.sga.servicio;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
 import mx.com.gm.sga.domain.Persona;
 
 /**
  * Clase que implementa la interface PersonaServiceRemote
  * @author PC
  */
+@Stateless
 public class PersonaServiceImpl implements PersonaServiceRemote{
 
     @Override
