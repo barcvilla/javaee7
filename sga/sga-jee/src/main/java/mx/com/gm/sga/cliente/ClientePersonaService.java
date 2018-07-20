@@ -13,7 +13,7 @@ import mx.com.gm.sga.domain.Persona;
 import mx.com.gm.sga.servicio.PersonaServiceRemote;
 
 /**
- * 
+ * Llamamos a un EJB Remote desde el Cliente Java
  * @author PC
  */
 public class ClientePersonaService {

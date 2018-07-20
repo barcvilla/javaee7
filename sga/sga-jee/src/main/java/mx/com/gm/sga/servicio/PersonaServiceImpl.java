@@ -11,11 +11,11 @@ import javax.ejb.Stateless;
 import mx.com.gm.sga.domain.Persona;
 
 /**
- * Clase que implementa la interface PersonaServiceRemote
+ * Componente EJB que implementa la interface PersonaServiceRemote y PersonaServiceLocal
  * @author PC
  */
 @Stateless
-public class PersonaServiceImpl implements PersonaServiceRemote{
+public class PersonaServiceImpl implements PersonaServiceRemote, PersonaServiceLocal{
 
     @Override
     public List<Persona> listarPersona() {
