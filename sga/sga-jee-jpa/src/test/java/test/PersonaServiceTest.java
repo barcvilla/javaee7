@@ -37,7 +37,7 @@ public class PersonaServiceTest {
     {
         System.out.println("Iniciando test EJB PersonaService");
         assertTrue(personaServiceLocal != null);
-        assertEquals(2, personaServiceLocal.listarPersona().size());
+        assertEquals(4, personaServiceLocal.listarPersona().size());
         System.out.println("El no. de personas es igual a " + personaServiceLocal.listarPersona().size());
         this.desplegarPersona(personaServiceLocal.listarPersona()); //llamamos al metodo del EJB a traves de la interface local
         System.out.println("Fin test EJB PersonaServiceLocal");

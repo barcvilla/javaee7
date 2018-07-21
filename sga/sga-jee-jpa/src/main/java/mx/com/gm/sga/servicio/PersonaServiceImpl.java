@@ -7,8 +7,11 @@ package mx.com.gm.sga.servicio;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import mx.com.gm.sga.domain.Persona;
+import mx.com.gsm.sga.eis.PersonaDao;
 
 /**
  * Componente EJB que implementa la interface PersonaServiceRemote y PersonaServiceLocal
@@ -16,38 +19,38 @@ import mx.com.gm.sga.domain.Persona;
  */
 @Stateless
 public class PersonaServiceImpl implements PersonaServiceRemote, PersonaServiceLocal{
+    
+    @EJB
+    private PersonaDao personaDao; //inyectamos la referencia del personaDao
 
     @Override
     public List<Persona> listarPersona() {
-        List<Persona> personas = new ArrayList<>();
-        personas.add(new Persona(1, "Juan", "Perez", "Suarez", "jperez@gmail.com", "55668798"));
-        personas.add(new Persona(2, "Martha", "Suarez", "Jimenez", "msuarez@gmail.com", "566998811"));
-        return personas;
+        return personaDao.findAllPersonas();
     }
 
     @Override
     public Persona encontrarPersonaPorId(Persona persona) {
-        return null;
+        return personaDao.findPersonaById(persona);
     }
 
     @Override
     public Persona encontrarPersonaPorEmail(Persona persona) {
-        return null;
+        return personaDao.findPersonaByEmail(persona);
     }
 
     @Override
     public void registrarPersona(Persona persona) {
-        
+        personaDao.insertPersona(persona);
     }
 
     @Override
     public void modificarPersona(Persona persona) {
-        
+        personaDao.updatePersona(persona);
     }
 
     @Override
     public void eliminarPersona(Persona persona) {
-        
+        personaDao.deletePersona(persona);
     }
     
 }

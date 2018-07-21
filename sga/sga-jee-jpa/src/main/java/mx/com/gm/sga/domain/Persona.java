@@ -6,18 +6,39 @@
 package mx.com.gm.sga.domain;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author PC
  */
+@Entity
+/*adicionamos el query llamado Persona.findAll. Usamos una sentencia JPQL: Select a todos los objetos de tipo Persona en la BD
+  ordenados por el idPersona*/
+@NamedQueries({@NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p ORDER BY p.idPersona")})
+@Table(name = "persona")// indicamos el nombre de la tabla
 public class Persona implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_persona")
     private int idPersona;
+    @Column(nullable = false, length = 45)
     private String nombre;
+    @Column(name = "apellido_paterno", nullable = false, length = 45)
     private String apePaterno;
+    @Column(name = "apellido_materno", length = 45)
     private String apeMaterno;
+    @Column(nullable = false, length = 45)
     private String email;
+    @Column(length = 45)
     private String telefono;
     
     public Persona(){}
