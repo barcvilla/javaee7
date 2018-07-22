@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <!--Unidad de Persistencia para Glassfish-->
     <persistence-unit name="PersonaPU" transaction-type="JTA">
         <jta-data-source>jdbc/PersonaDb</jta-data-source>
+        <properties>
+            <property name="eclipseLink.logging.level.sql" value="FINE"/>
+            <property name="eclipseLink.logging.parameters" value="true"/>
+            <property name="eclipseLink.canonicalmodel.subpackage" value="prod" /> <!--Unidida de Persistencia de produccion-->
+        </properties>
+    </persistence-unit>
+    <!--Unidad de Persistencia para consola JPQL-->
+    <persistence-unit name="ConsolaJpqlPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>mx.com.gm.sga.domain.Persona</class>
+        <class>mx.com.gm.sga.domain.Usuario</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/recursos_humanos?useSSL=false"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="admin"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipseLink.logging.level.sql" value="FINE"/>
+            <property name="eclipseLink.logging.parameters" value="true"/>
+            <property name="eclipseLink.canonicalmodel.subpackage" value="dev"/> <!--Unidad de persistencia para desarrollo-->
+        </properties>
     </persistence-unit>
 </persistence>

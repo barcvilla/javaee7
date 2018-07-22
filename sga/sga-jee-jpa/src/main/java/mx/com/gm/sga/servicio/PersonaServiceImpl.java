@@ -11,7 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import mx.com.gm.sga.domain.Persona;
-import mx.com.gsm.sga.eis.PersonaDao;
+import mx.com.gm.sga.eis.PersonaDao;
 
 /**
  * Componente EJB que implementa la interface PersonaServiceRemote y PersonaServiceLocal

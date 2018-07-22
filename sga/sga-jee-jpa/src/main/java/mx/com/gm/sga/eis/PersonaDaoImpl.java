@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mx.com.gsm.sga.eis;
+package mx.com.gm.sga.eis;
 
 import java.util.List;
 import javax.ejb.Stateless;
