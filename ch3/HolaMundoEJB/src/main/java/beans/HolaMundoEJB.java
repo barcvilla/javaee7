@@ -8,7 +8,7 @@ package beans;
 import javax.ejb.Stateless;
 
 /**
- *
+ * Objeto EJB que se desplegara en un contenedor ejb embebido
  * @author PC
  */
 @Stateless

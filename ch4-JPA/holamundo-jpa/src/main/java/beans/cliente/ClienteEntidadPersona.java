@@ -27,7 +27,7 @@ public class ClienteEntidadPersona {
         //iniciamos la transaccion
         tx.begin();
         // no se debe especificar el ID ya que se genera en automatico
-        Persona persona1 = new Persona("Maria", "Guitierrez", "Esparza", "maria@gmail.com.mx", "1234667899");
+        Persona persona1 = new Persona("Jose", "Guitierrez", "Esparza", "jose_GE@gmail.com.mx", "1234667899");
         log.debug("Objeto a persistir: " + persona1);
         //persistimos el objeto
         em.persist(persona1);

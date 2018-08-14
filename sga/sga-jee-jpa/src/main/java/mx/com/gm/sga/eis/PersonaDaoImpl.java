@@ -55,6 +55,4 @@ public class PersonaDaoImpl implements PersonaDao{
         em.merge(persona);
         em.remove(persona);
     }
-    
-    
 }
