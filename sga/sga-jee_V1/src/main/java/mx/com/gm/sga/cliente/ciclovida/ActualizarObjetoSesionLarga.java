@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.validation.ConstraintViolationException;
+import static mx.com.gm.sga.cliente.ciclovida.ActualizarObjetoJPA.log;
 import mx.com.gm.sga.domain.Persona;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -19,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author PC
  */
-public class ActualizarObjetoJPA {
+public class ActualizarObjetoSesionLarga {
     static Logger log = LogManager.getRootLogger();
     
     public static void main(String[] args) {
@@ -29,38 +30,23 @@ public class ActualizarObjetoJPA {
         
         try
         {
-            //1. Iniciamos la Transaccion
+            //1. Iniciamos la transaccion
             tx.begin();
             
-            //2. Ejecutamos SQL de tipo select. El id proporcionado debe existir en la base de datos
+            // 2. Ejecutamos un sql de tipo select. Puede ser un find() o un merge() si ya tenemos el objeto
             Persona persona1 = em.find(Persona.class, 1);
+            log.debug("Objeto encontrado: " + persona1);
             
-            //3. Terminamos la transaccion
+            //3. setValue(nuevoValor)
+            persona1.setNombre("Carlos E.");
+            persona1.setApellidoPaterno("Villanueva");
+            persona1.setEmail("ceva_19@hotmail.com");
+            
+            //4. Terminamos la transaccion. Ejecuta el update aunque se hayan realizado 3 cambios de objeto
             tx.commit();
             
             //Objeto en estado detached
-            log.debug("Objeto Recuperado: " + persona1);
-            
-            //4. setValue(nuevoValor)
-            persona1.setNombre("Carlos Eduardo");
-            persona1.setApellidoPaterno("Villenueve");
-            
-            //5. Iniciamos una segunda transaccion
-            EntityTransaction tx2 = em.getTransaction();
-            tx2.begin();
-            
-            //6. Ejecuta el SQL. Es un select, pero al estar modificado al terminar la transaccion hara un update
-            // como ya tenemos el objeto hacemos solo un merge para resincronizar. El objeto a hacer merge, debe contar con el valor de la
-            // llave primaria.
-            em.merge(persona1); //aplicamos un merge porque el objeto viene de un estado detached. em.persist() se usa cuando viene el objeto de un estado transit
-            
-            //7. Terminamos la transaccion 2
-            //Al momento de hacer commit, se revisan las diferencias entre el objeto de la BD y el objeto en la memoria, si se aplican los cambios
-            // si existieran.
-            tx2.commit();
-            
-            //objeto en estado detached ya moficiado
-            log.debug("Objeto recuperado: " + persona1);
+            log.debug("Objeto modificado " + persona1);
         }
         catch (ConstraintViolationException e) {
             log.log(Level.ERROR, "Exception: ");
