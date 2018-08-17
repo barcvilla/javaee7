@@ -100,6 +100,73 @@ public class PruebaJPQL {
             log.debug("idMin: " + idMin + " idMax: " + idMax + " count: " + count );
         }
         
+        //8. Cuenta los nombres de las personas que son distintos
+        log.debug("\n8) Extrae el numero de las personas que son distintos");
+        jpql = "select count(distinct p.nombre) from Persona p";
+        Long contador = (Long)em.createQuery(jpql).getSingleResult();
+        log.debug("no. de personas con nombre distinto: " + contador);
+        
+        //9. Concatena y Convierte a mayusculas el nombre y apellido (depende de la BD)
+        log.debug("\n9) Concatena y Convierte a mayusculas el nombre y apellido (depende de la base de datos)");
+        jpql = "select CONCAT(p.nombre, ' ', p.apellidoPaterno) as Nombre from Persona p";
+        nombres = em.createQuery(jpql).getResultList();
+        for(String nombreCompleto : nombres)
+        {
+            log.debug(nombreCompleto);
+        }
+        
+        //10. Obtiene el objeto Persona con id igual al parametro
+        log.debug("\n10) Obtiene el objeto Persona con id igual al parametro 1");
+        int idPersona = 8;
+        jpql = "select p from Persona p where p.idPersona = :id";
+        q = em.createQuery(jpql);
+        q.setParameter("id", idPersona);
+        persona = (Persona)q.getSingleResult();
+        log.debug(persona);
+        
+        //11. Obtiene las personas que contenga una letra a, sin importar mayusculas/minusculas
+        log.debug("\n11) Obtiene las personas que contenga una letra a, sin importar mayusculas/minusculas");
+        jpql = "select p from Persona p where upper(p.nombre) like upper(:param1)";
+        String cadena = "%a%"; //es el caracter que utilizamos para el like
+        q = em.createQuery(jpql);
+        q.setParameter("param1", cadena);
+        personas = q.getResultList();
+        mostrarPersona(personas);
+        
+        //12. Uso de Between
+        log.debug("\n12) Uso de Between:");
+        int id1 = 1;
+        int id2 = 5;
+        jpql = "select p from Persona p where p.idPersona between :id1 and :id2";
+        q = em.createQuery(jpql);
+        q.setParameter("id1", id1);
+        q.setParameter("id2", id2);
+        personas = q.getResultList();
+        mostrarPersona(personas);
+        
+        //13. Uso del ordenamiento
+        log.debug("\n13) Uso del ordenamiento:");
+        jpql = "select p from Persona p where p.idPersona > 3 order by p.nombre desc, p.apellidoPaterno desc";
+        personas = em.createQuery(jpql).getResultList();
+        mostrarPersona(personas);
+        
+        //14. Uso de un subquery (el soporte de esta funcionalidad depende de la base de datos utilizada)
+        log.debug("\n14) Uso de Subquery (el soporte de la funcionalidad de subquery depende de la base de datos utilizada)");
+        jpql = "select p from Persona p where p.idPersona in (select min(p1.idPersona) from Persona p1)";
+        personas = em.createQuery(jpql).getResultList();
+        mostrarPersona(personas);
+        
+        //15. Uso de join con lazy loading
+        log.debug("\n15) Uso de join con Lazy loading:");
+        jpql = "select u from Usuario u join u.persona p";
+        usuarios = em.createQuery(jpql).getResultList();
+        mostrarUsuario(usuarios);
+        
+        //16. Uso de left join con eager loading
+        log.debug("\n16) Uso de left join con eager leading:");
+        jpql = "select u from Usuario u left join fetch u.persona";
+        usuarios = em.createQuery(jpql).getResultList();
+        mostrarUsuario(usuarios);
     }
     
     private static void mostrarPersona(List<Persona> personas)

@@ -141,7 +141,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.gm.sga.domain.Usuario[ idUsuario=" + idUsuario + " ]";
+        return "mx.com.gm.sga.domain.Usuario[ idUsuario=" + idUsuario + " userName= "  + username +" ]";
     }
     
 }
