@@ -6,10 +6,8 @@
 package mx.com.gm.sga.web;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mx.com.gm.sga.domain.Persona;
 import mx.com.gm.sga.servicio.PersonaServiceLocal;
-import mx.com.gm.sga.servicio.PersonaServiceRemote;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
@@ -27,8 +26,9 @@ import mx.com.gm.sga.servicio.PersonaServiceRemote;
 public class ServletControlador extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    static Logger log = LogManager.getRootLogger();
 
-    @Inject
+    @EJB
     private PersonaServiceLocal personaServiceLocal;
 
     @Override
@@ -72,6 +72,7 @@ public class ServletControlador extends HttpServlet {
             //1. recuperamos los parametros
             String nombre = request.getParameter("nombre");
             String apePaterno = request.getParameter("apePaterno");
+            String apeMaterno = request.getParameter("apeMaterno");
             String email = request.getParameter("email");
             String telefono = request.getParameter("telefono");
             
@@ -79,8 +80,11 @@ public class ServletControlador extends HttpServlet {
             Persona persona = new Persona();
             persona.setNombre(nombre);
             persona.setApellidoPaterno(apePaterno);
+            persona.setApellidoMaterno(apeMaterno);
             persona.setEmail(email);
             persona.setTelefono(telefono);
+            
+            
             
             try
             {
@@ -99,6 +103,7 @@ public class ServletControlador extends HttpServlet {
         {
             // dentro de la modificacion, se puede modificar o eliminar segun se haya seleccionado
             // verificamos si se presiono el boton guardar
+            
             String botonGuardar = request.getParameter("guardar");
             String botonEliminar = request.getParameter("eliminar");
             
@@ -108,6 +113,7 @@ public class ServletControlador extends HttpServlet {
                 String idPersonaString = request.getParameter("idPersona");
                 String nombre = request.getParameter("nombre");
                 String apePaterno = request.getParameter("apePaterno");
+                String apeMaterno = request.getParameter("apeMaterno");
                 String email = request.getParameter("email");
                 String telefono = request.getParameter("telefono");
                 
@@ -117,11 +123,13 @@ public class ServletControlador extends HttpServlet {
                 persona.setIdPersona(idPersona);
                 persona.setNombre(nombre);
                 persona.setApellidoPaterno(apePaterno);
+                persona.setApellidoMaterno(apeMaterno);
                 persona.setEmail(email);
                 persona.setTelefono(telefono);
                 
                 try
                 {
+                    
                     //3. utilizamos la capa de servicio para modificar a la persona
                     this.personaServiceLocal.modificarPersona(persona);
                 }
@@ -129,15 +137,29 @@ public class ServletControlador extends HttpServlet {
                 {
                     ex.printStackTrace();
                 }
+                //4. Listamos las personas
+                this.listarPersonas(request, response);
             }
             else if(botonEliminar != null)
             {
                 //1. recuperamos los valores
                 String idPersonaString = request.getParameter("idPersona");
+                String nombre = request.getParameter("nombre");
+                String apePaterno = request.getParameter("apePaterno");
+                String apeMaterno = request.getParameter("apeMaterno");
+                String email = request.getParameter("email");
+                String telefono = request.getParameter("telefono");
                 
                 //2. creamos el objeto persona
                 int idPersona = Integer.parseInt(idPersonaString);
-                Persona persona = new Persona(idPersona);
+                
+                Persona persona = new Persona();
+                persona.setIdPersona(idPersona);
+                persona.setNombre(nombre);
+                persona.setApellidoPaterno(apePaterno);
+                persona.setApellidoMaterno(apeMaterno);
+                persona.setEmail(email);
+                persona.setTelefono(telefono);
                 
                 try
                 {
@@ -148,6 +170,8 @@ public class ServletControlador extends HttpServlet {
                 {
                     ex.printStackTrace();
                 }
+                //4. listamos personas
+                this.listarPersonas(request, response);
             }
             else
             {

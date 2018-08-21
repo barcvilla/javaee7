@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,10 +21,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author PC
- */
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
@@ -41,18 +36,21 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_usuario")
     private Integer idUsuario;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "username")
     private String username;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "password")
     private String password;
+
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)//los usuarios se cargan de manera inmediata
+    @ManyToOne(cascade = CascadeType.ALL)
     private Persona persona;
 
     public Usuario() {
@@ -61,7 +59,7 @@ public class Usuario implements Serializable {
     public Usuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
     public Usuario(String username, String password) {
         this.username = username;
         this.password = password;
@@ -72,13 +70,13 @@ public class Usuario implements Serializable {
         this.username = username;
         this.password = password;
     }
-    
+
     public Usuario(String username, String password, Persona persona) {
         this.username = username;
         this.password = password;
         this.persona = persona;
     }
-    
+
     public Usuario(Integer idUsuario, String password, String username,
             Persona persona) {
         this.idUsuario = idUsuario;
@@ -115,7 +113,7 @@ public class Usuario implements Serializable {
         return persona;
     }
 
-    public void setIdPersona(Persona persona) {
+    public void setPersona(Persona persona) {
         this.persona = persona;
     }
 
@@ -141,7 +139,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.com.gm.sga.domain.Usuario[ idUsuario=" + idUsuario + " userName= "  + username +" ]";
+        return "Usuario{" + "idUsuario=" + idUsuario + ", username=" + username + ", password=" + password + ", persona=" + persona + '}';
     }
-    
 }

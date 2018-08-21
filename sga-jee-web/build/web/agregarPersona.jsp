@@ -7,7 +7,7 @@
 
 	<h1>Agregar Persona</h1>
 	
-	<form action="ServletControlador" method="post">
+	<form action="ListarPersonas" method="post">
 		<input type="hidden" name="accion" value="agregar"/>
 	
 		<label for="nombre">Nombre:</label>
@@ -15,6 +15,9 @@
 		
 		<label for="apePaterno">Apellido Paterno:</label>
 		<input type="text" name="apePaterno" style="display: block;"/>
+                
+                <label for="apeMaterno">Apellido Materno:</label>
+		<input type="text" name="apeMaterno" style="display: block;"/>
 		
 		<label for="email">eMail:</label>
 		<input type="text" name="email" style="display: block;"/>

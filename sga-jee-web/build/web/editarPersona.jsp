@@ -14,7 +14,7 @@
     </head>
     <body>
         <h1>Modificar Persona</h1>
-        <form action="ServletControlador" method="post">
+        <form action="ListarPersonas" method="post">
             <input type="hidden" name="accion" value="modificar" />
             <input type="hidden" name="idPersona" value="${persona.idPersona}" />
             
@@ -23,6 +23,9 @@
             
             <label for="apePaterno">Apellido Paterno:</label>
             <input type="text" name="apePaterno" value="${persona.apellidoPaterno}" style="display: block" />
+            
+            <label for="apeMaterno">Apellido Materno</label>
+            <input type="text" name="apeMaterno" value="${persona.apellidoMaterno}" style="display: block" />
             
             <label for="email">Email:</label>
             <input type="text" name="email" value="${persona.email}" style="display: block" />

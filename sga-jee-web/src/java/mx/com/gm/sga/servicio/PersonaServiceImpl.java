@@ -45,15 +45,7 @@ public class PersonaServiceImpl implements PersonaServiceRemote, PersonaServiceL
 
     @Override
     public void registrarPersona(Persona persona) {
-        try
-        {
-           personaDao.insertPersona(persona);
-        }
-        catch(Throwable t)
-        {
-            contexto.setRollbackOnly();
-            t.printStackTrace(System.out);
-        }
+        personaDao.insertPersona(persona);
     }
 
     @Override

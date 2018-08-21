@@ -15,12 +15,14 @@
     <body>
         <h1>Listado de Personas</h1>
         <a href="agregarPersona.jsp">Agregar Persona</a>
-        <br/>
+        <br/><br/>
         <table border="1">
             <tr>
                 <th>Nombre</th>
                 <th>Apellido Paterno</th>
+                <th>Apellido Matenro</th>
                 <th>Email</th>
+                <th>Telefono</th>
             </tr>
             <c:forEach var="persona" items="${personas}">
                 <tr>
@@ -28,7 +30,9 @@
                         <a href="ListarPersonas?accion=editar&idPersona=${persona.idPersona}">${persona.nombre}</a>
                     </td>
                     <td>${persona.apellidoPaterno}</td>
+                    <td>${persona.apellidoMaterno}</td>
                     <td>${persona.email}</td>
+                    <td>${persona.telefono}</td>
                 </tr>
             </c:forEach>
         </table>

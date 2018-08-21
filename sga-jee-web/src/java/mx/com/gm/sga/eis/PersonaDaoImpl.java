@@ -52,7 +52,14 @@ public class PersonaDaoImpl implements PersonaDao{
 
     @Override
     public void deletePersona(Persona persona) {
-        em.merge(persona);
+        //em.merge(persona);
+        //em.remove(persona);
+        
+        if(!em.contains(persona))
+        {
+            persona = em.merge(persona);
+        }
         em.remove(persona);
+        
     }
 }

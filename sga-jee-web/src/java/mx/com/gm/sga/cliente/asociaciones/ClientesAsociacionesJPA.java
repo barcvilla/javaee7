@@ -52,7 +52,7 @@ public class ClientesAsociacionesJPA {
         {
             log.debug("Persona: " + persona);
             //recuperamos los usuarios de cada persona
-            for(Usuario usuario : persona.getUsuarioList())
+            for(Usuario usuario : persona.getUsuarios())
             {
                 log.debug("Usuario: " + usuario);
             }

@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,10 +21,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author PC
- */
 @Entity
 @Table(name = "persona")
 @NamedQueries({
@@ -44,32 +39,35 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_persona")
     private Integer idPersona;
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "nombre")
     private String nombre;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "apellido_paterno")
     private String apellidoPaterno;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
+    
+    @Size(max = 45)
     @Column(name = "apellido_materno")
     private String apellidoMaterno;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "email")
     private String email;
+    
     @Size(max = 45)
     @Column(name = "telefono")
     private String telefono;
-    @OneToMany(mappedBy = "persona", fetch = FetchType.EAGER, cascade = CascadeType.ALL) //se cargaran automaticamente todos los usuarios relacionados a la persona en la BD
-    private List<Usuario> usuarioList;
+    
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
+    private List<Usuario> usuarios;
 
     public Persona() {
     }
@@ -77,8 +75,9 @@ public class Persona implements Serializable {
     public Persona(Integer idPersona) {
         this.idPersona = idPersona;
     }
-    
-    public Persona(String nombre, String apePaterno, String apeMaterno,String email, String telefono) {
+
+    public Persona(String nombre, String apePaterno, String apeMaterno,
+            String email, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apePaterno;
         this.apellidoMaterno = apeMaterno;
@@ -86,12 +85,21 @@ public class Persona implements Serializable {
         this.telefono = telefono;
     }
 
-    public Persona(Integer idPersona, String nombre, String apellidoPaterno, String apellidoMaterno, String email) {
+    public Persona(Integer idPersona, String nombre, String apellidoPaterno, String email) {
+        this.idPersona = idPersona;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.email = email;
+    }
+
+    public Persona(Integer idPersona, String nombre, String apellidoPaterno, String apellidoMaterno,
+            String email, String telefono) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.email = email;
+        this.telefono = telefono;
     }
 
     public Integer getIdPersona() {
@@ -111,7 +119,7 @@ public class Persona implements Serializable {
     }
 
     public String getApellidoPaterno() {
-        return apellidoPaterno ;
+        return apellidoPaterno;
     }
 
     public void setApellidoPaterno(String apellidoPaterno) {
@@ -142,12 +150,12 @@ public class Persona implements Serializable {
         this.telefono = telefono;
     }
 
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
@@ -159,7 +167,6 @@ public class Persona implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Persona)) {
             return false;
         }
@@ -172,7 +179,6 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "idPersona=" + idPersona + " ," + "nombre= " + nombre ;
+        return "Persona{" + "idPersona=" + idPersona + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", email=" + email + ", telefono=" + telefono + '}';
     }
-    
 }
