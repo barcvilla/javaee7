@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Archivo de configuracion para Log4J-->
+<Configuracion status="INFO">
+    <!--con Appenders indicamos hacia donde enviaremos los log escritos en nuestra app, en ese caso a la consola-->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"  />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!--Nivel de log debug que se enviara al appender indicado-->
+        <Root level="debug">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuracion>

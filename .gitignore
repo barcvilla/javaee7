@@ -10,3 +10,7 @@
 /sga/sga-jee-consulta-jpql/target/
 /sga/sga-jee-api-criteria/target/
 /sga/sga-jee-transacciones-jpa/target/
+/SgaJeeWeb/nbproject/private/
+/SgaJeeWeb-V2/nbproject/private/
+/SgaJeeWeb-V2/build/
+/SgaJeeWeb-V2/dist/
