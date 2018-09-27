@@ -50,6 +50,7 @@ public class PlayersBean {
     private int prize = 60941937;
 
     public PlayersBean() {
+        facebook = "raphael.naldal@facebook.com";
         play = Plays.Left;
         finals_2013.add("Beijing");
         finals_2013.add("ATP World Tour Masters 1000 Monte Carlo");
@@ -59,7 +60,7 @@ public class PlayersBean {
         matchFacts.put("1st Serve", "70%");
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
-        calendar.set(1986, Calendar.JUNE);
+        calendar.set(1986, Calendar.JUNE, 3);
         playerDetails = new PlayerDetails(27, calendar.getTime(), "Manacor, Mallorca, Spain", "Manacor, Mallorca, Spain", 185, 85,
             new PlayerMoreDetails(2001, "Toni Nadal", " http://www.rafaelnadal.com"));
     }
@@ -79,6 +80,11 @@ public class PlayersBean {
     public int getPrize()
     {
         return prize;
+    }
+    
+    public String getHonorific()
+    {
+        return "Mr.";
     }
     
     public List<String> getFinals_2013()
@@ -116,6 +122,7 @@ public class PlayersBean {
         return playerDetails;
     }
     
+    //Llamando desde JSF: #{playersBean.vamosRafa_1()}
     public void vamosRafa_1() {
         System.out.println("Vamos Rafa!");
     }
@@ -123,11 +130,13 @@ public class PlayersBean {
     public String vamosRafa_2() {
         return "Vamos Rafa!";
     }
-
+    
+    //Llamando desde JSF: #{playersBean.vamosRafa_3('Vamos Rafa!')}
     public void vamosRafa_3(String text) {
         System.out.println(text);
     }
-
+    
+    //Llamando a un metodo con dos argumentos desde JSF: #{playersBean.vamosRafa_4(playersBean.playerName, playersBean.playerSurname)}
     public String vamosRafa_4(String name, String surname) {
         return "Vamos " + name + " " + surname + "!";
     }

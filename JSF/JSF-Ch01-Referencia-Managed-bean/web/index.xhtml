@@ -1,12 +1,98 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Mastering JavaServes Faces</title>
+        <style media="screen" type="text/css">
+            .red {
+                color:#cc0000;
+            }
+            .blue {
+                color: #0000cc;
+            }
+        </style>
+        <script type="text/javascript">
+            function infoJS(name, surname) {
+                alert("Name: " + name + " Surname: " + surname);
+            }
+        </script>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <b>Referenciando Bean: </b><br/>
+        #{playersBean}<br/>
+        <br/><b>Simple bean Properties Output:</b><br/>
+        <i>#{playersBean.honorific} #{playersBean.playerName} #{playersBean.playerSurname}</i><br/>
+        <br/><b>Nested Bean Properties Output:</b><br/>
+        Age: <i>#{playersBean.playerDetails.age}</i><br/>
+        BirthDay: <i>#{playersBean.playerDetails.birthday}</i><br/>
+        Birthplace: <i>#{playersBean.playerDetails.birthplace}</i><br/>
+        Residence: <i>#{playersBean.playerDetails.residence}</i><br/>
+        Height: <i>#{playersBean.playerDetails.height}</i><br/>
+        Weight: <i>#{playersBean.playerDetails.weight}</i><br/>
+        <br/><b>More Nested Bean Properties Output Usig dot notation:</b><br/>
+        Turned Pro: <i>#{playersBean.playerDetails.playerMoreDetails.turnedpro}</i><br/>
+        Coach: <i>#{playersBean.playerDetails.playerMoreDetails.coach}</i><br/>
+        Website: <i>#{playersBean.playerDetails.playerMoreDetails.website}</i><br/>
+        <br/><b>Nested Bean Properties Output using brackets notation[]:</b><br/>
+        Age: <i>#{playersBean.playerDetails['age']}</i><br/>         
+        Birthday: <i>#{playersBean.playerDetails['birthday']}</i><br/>
+        Birthplace: <i>#{playersBean.playerDetails['birthplace']}</i><br/>
+        Residence: <i>#{playersBean.playerDetails['residence']}</i><br/>
+        Height: <i>#{playersBean.playerDetails['height']}</i><br/>
+        Weight: <i>#{playersBean.playerDetails['weight']}</i><br/>
+        <br/><b>More Nested Bean Properties Output []:</b><br/>
+        Turned Pro: <i>#{playersBean.playerDetails['playerMoreDetails']['turnedpro']}</i><br/>
+        Coach: <i>#{playersBean.playerDetails['playerMoreDetails']['coach']}</i><br/>
+        Website: <i>#{playersBean.playerDetails['playerMoreDetails']['website']}</i><br/>
+        <br/><b>Java SE Enumerated types output:</b><br/>
+        Plays: <i>#{playersBean.play} #{playersBean == 'Left'} #{playersBean.play == 'Right'}</i><br/>
+        <br/><b>Collections Bean Output:</b><br/>
+        Second title: <i>#{playersBean.titles_2013[1]}</i><br/>
+        Iterating All Titles (metodo 1 - Using forEach):<br/>
+        <c:forEach var="title" items="#{playersBean.titles_2013}">
+            <i>#{title}</i>,
+        </c:forEach><br/><br/>
+        Iterating All Titles (metodo 2 - Using ui:repeat):<br/>
+        <ui:repeat var="title" value="#{playersBean.finals_2013}">
+            <i>#{title}</i>
+        </ui:repeat><br/><br/>
+        Third final: <i>#{playersBean.finals_2013[2]}</i>
+        Double Faults: <i>#{playersBean.matchFact["Double Faults"]}</i><br/>
+        Aces: <i>#{playersBean.matchFact.Aces}</i><br/>
+        <br/><b>Calling Bean Methods</b><br/>
+        Calling 'vamosRafa_1', no arguments, no return result: <i>#{playersBean.vamosRafa_1()}</i><br/>
+        Calling 'vamosRafa_2', no arguments method, return result: <i>#{playersBean.vamosRafa_2()}</i><br/>
+        Calling 'vamosRafa_3' with one argument, return void: <i>#{playersBean.vamosRafa_3('Vamos Rafa!')}</i><br/>
+        Calling 'vamosRafa_4' with two arguments, return result: <i>#{playersBean.vamosRafa_4(playersBean.playerName, playersBean.playerSurname)}</i><br/>
+        Calling 'vamosRafa_5' for auto navigation:
+        <h:form>   
+            <h:commandButton action="#{playersBean.vamosRafa_5()}" value="Vamos ..." />
+        </h:form>
+        Calling a method that contain an ActionEvent argument:<br/>
+        <h:form>
+            <h:commandButton value="Player Listener 1" actionListener="#{playersBean.playerListener}" action="#{playersBean.playerDone()}"/>
+        </h:form>
+        <br/>
+        Calling JavaScript function with bean properties:        
+        <h:form>
+            <h:commandButton type="button" value="Click Me!" onclick="infoJS('#{playersBean.playerName}', '#{playersBean.playerSurname}')"/>
+        </h:form>
+        <br/><br/><b>Conditional text JSF:</b><br/><!--Usando operador ternario-->
+        <i><h:outputText value="#{playersBean.play}" styleClass="#{playersBean.play == 'Left' ? 'red': 'blue'}"/></i><br/>
+        <!--Recorremos el array y eliminamos la coma del ultimo elemento usando operador ternario-->
+        <c:forEach var="title" items="#{playersBean.finals_2013}" varStatus="v">
+            <i>#{title}</i>
+            #{v.last ? '' : ','}
+        </c:forEach><br/>
+        <i><h:outputText value="#{playersBean.playerDetails.playerMoreDetails.turnedpro lt 2000 ? 'Truned pro before 2000':'Truned pro after 2000'}" /></i>
+        <br/>
+        <!--Escribimos la direccion de facebook del jugador si esta no esta vacia-->
+        <h:outputText value="Facebook address: #{playersBean.facebook}" rendered="#{!empty playersBean.facebook}" />
     </h:body>
 </html>
 
