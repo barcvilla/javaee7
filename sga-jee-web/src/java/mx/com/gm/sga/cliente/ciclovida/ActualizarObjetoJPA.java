@@ -33,7 +33,7 @@ public class ActualizarObjetoJPA {
             tx.begin();
             
             //2. Ejecutamos SQL de tipo select. El id proporcionado debe existir en la base de datos
-            Persona persona1 = em.find(Persona.class, 1);
+            Persona persona1 = em.find(Persona.class, 2);
             
             //3. Terminamos la transaccion
             tx.commit();
