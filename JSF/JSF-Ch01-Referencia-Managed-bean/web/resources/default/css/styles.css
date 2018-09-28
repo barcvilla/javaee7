@@ -1,0 +1,57 @@
+ol { font-style:italic; font-family:Georgia, Times, serif; font-size:24px; color:#cc0000;  }
+ol li { }
+ol li p { padding:8px; font-style:normal; font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size:14px; color:#000000; border-left: 1px solid #999; }
+ol li p b { display:block; }
+#box-content{
+    font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; font-size:10px;
+    background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, #6EEF37 100%);
+    background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, #6EEF37 100%);
+    background-image: -o-linear-gradient(bottom, #FFFFFF 0%, #6EEF37 100%);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FFFFFF), color-stop(1, #6EEF37));
+    background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, #6EEF37 100%);
+    -moz-box-shadow: 0 0 5px #000;
+    -webkit-box-shadow: 0 0 5px#000;
+    box-shadow: 0 0 5px #000;
+    border-radius: 10px 0px 0px 0px;
+    -moz-border-radius: 10px 0px 0px 0px;
+    -webkit-border-radius: 10px 0px 0px 0px;
+    text-align:left;
+    position:fixed;    
+    padding:8px;
+    width:900px;
+    bottom:0;
+    right:0;
+}
+#flip{
+    background-image:url("#{resource['default:images/sh.gif']}");
+    cursor:pointer;
+    position:fixed;
+    display:block;
+    width:25px;
+    height:20px;
+    right:920px;
+    bottom:0;
+}
+table {
+    border-collapse:collapse;
+    text-align:left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td, table th {
+    padding:3px 3px;
+}
+
+table thead th {
+    background:0;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699',endColorstr='#00557F');
+    background-color:#00cc00;
+    color:#fff;        
+    border-left:1px solid #ffffff;
+}
+
+table tbody td {
+    color:#00496B;    
+    border-bottom:1px solid #000000;   
+}

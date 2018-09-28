@@ -1,0 +1,494 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title></title>
+        <h:outputStylesheet library="default" name="css/styles.css"/>
+        <h:outputScript library="default" name="js/jQuery.js"/>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#flip").click(function() {
+                    $("#box-content").slideToggle("slow");
+                });
+            });
+        </script>        
+    </h:head>
+    <h:body>           
+        <div style="text-align:center;background-color: #c0ccc0"><h2>EL 3.0 Expressions Examples</h2></div>
+        <hr/>
+        <div style="text-align:left;background-color: #cccc00"><h3>A. New Operators: '+' ,'=', ';'</h3></div>
+        <hr/>
+        <ol>            
+            <li>                
+                <p><b>#&zwnj;{x = 3}</b> evaluates to: #{x = 3}</p>                          
+            </li>
+            <li>
+                <p><b>#&zwnj;{y = x + 5}</b> evaluates to: #{y = x + 5}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{z = y = x + 4}</b> evaluates to: #{z = y = x + 4}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{0 += 0 +=0 += 1 += 1 += 0 += 0 += 0}</b> evaluates to: #{0 += 0 +=0 += 1 += 1 += 0 += 0 += 0}</p>                    
+            </li>
+            <li>
+                <p><b>#&zwnj;{x += y}</b> evaluates to: #{x += y}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{"Rafael " += "Nadal " += "Parera"}</b> evaluates to: #{"Rafael " += "Nadal " += "Parera"}</p>                                         
+            </li>
+            <li>
+                <p><b>#&zwnj;{x = 5; y = 3; z = x + y}</b> evaluates to: #{x = 5; y = 3; z = x + y}</p>
+            </li>          
+        </ol>        
+        <hr/>
+        <div style="text-align:right;background-color: #cccc00"><h3>B. Lambda Expression Invoked Immediately</h3></div>        
+        <hr/>
+        <ol>            
+            <li>
+                <p><b>#&zwnj;{(x->x+1)(3)}</b> evaluates to: #{(x->x+1)(3)}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{((x,y)->x+y)(2,7)}</b> evaluates to: #{((x,y)->x+y)(2,7)}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{((x,y,z)->x-y*z)(1,7,3)}</b> evaluates to: #{((x,y,z)->x-y*z)(1,7,3)}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{((x,y)->x/y)(1,5)}</b> evaluates to: #{((x,y)->x/y)(1,5)}</p>
+            </li>            
+        </ol>
+        <hr/>
+        <div style="text-align:left;background-color: #cccc00"><h3>C. Assigned Lambda Expression - Referenced and Invoked Indirectly</h3></div> 
+        <hr/>
+        <ol>
+            <li>
+                <p><b>#&zwnj;{q = x->x+1; q(3)}</b> evaluates to: #{q = x->x+1; q(3)}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{q = (x,y)->x+y; q(2,7)}</b> evaluates to: #{q = (x,y)->x+y; q(2,7)}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{q = ((x,y,z)->x-y*z); q(1,7,3)}</b> evaluates to: #{q = ((x,y,z)->x-y*z); q(1,7,3)}</p>
+            </li>
+            <li>
+                <p><b>#&zwnj;{q = ((x,y)->x/y); q(1,5)}</b> evaluates to: #{q = ((x,y)->x/y); q(1,5)}</p>
+            </li>             
+            <li>
+                <p>Factorial <i>n</i> recursive function:</p><p><b>#&zwnj;{fact = n -> n==0? 1: n*fact(n-1); fact(5)}</b> evaluates to: #{fact = n -> n==0 ? 1: n*fact(n-1); fact(5)}</p>
+            </li>
+            <li>
+                <p>Compute <i>n mod m</i> without using <i>%</i>:</p><p><b>#&zwnj;{modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))); modulus(13,5)}</b> evaluates to: #{modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))); modulus(13,5)}</p>
+            </li>
+            <li>
+                <p>Greatest common divisor of 2 numbers (uses the above <i>modulus</i> function):</p><p><b>#&zwnj;{gcd = (n,m) -> modulus(n,m) == 0 ? m: (gcd(m, modulus(n,m))); gcd(10, 15)}</b> evaluates to: #{gcd = (n,m) -> modulus(n,m) == 0 ? m: (gcd(m, modulus(n,m))); gcd(10, 15)}</p>
+            </li>
+        </ol>
+        <hr/>
+        <div style="text-align:right;background-color: #cccc00"><h3>D. Lambda Expression Passed as an Argument to a Method</h3></div>  
+        <hr/>
+        <ol>
+            <li>
+                <p>Call bean method named <i>firstLambdaAction</i> with lambda expression as argument:</p>
+                <p><b>#&zwnj;{lambdaBean.firstLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</b> evaluates to: #{lambdaBean.firstLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</p> 
+            </li>
+            <li>
+                <p>Call bean method named <i>secondLambdaAction</i> with lambda expression as argument:</p>
+                <p><b>#&zwnj;{lambdaBean.secondLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</b> evaluates to: #{lambdaBean.secondLambdaAction(modulus = (n,m) -> m eq 0 ? 0 : (n lt m ? n: (modulus(n-m, m))))}</p>
+            </li>            
+        </ol>   
+        <hr/>
+        <div style="text-align:left;background-color: #cccc00"><h3>E. Nested Lambda Expressions</h3></div>  
+        <hr/>
+        <ol>
+            <li>
+                <p><b>#&zwnj;{(x->x-((x,y)->(x+y))(4,3))(10)}</b> evaluates to: #{(x->x-((x,y)->(x+y))(4,3))(10)}</p>
+            </li>
+            <li>
+                <p>Call <i>thirdLambdaAction</i> with nested lambda expression as argument:</p>
+                <p><b>#&zwnj;{lambdaBean.thirdLambdaAction((x->x-((x,y)->(x+y))(4,3)))}</b> evaluates to: #{lambdaBean.thirdLambdaAction((x->x-((x,y)->(x+y))(4,3)))}</p>
+            </li>
+        </ol>
+        <hr/>
+        <div style="text-align:right;background-color: #cccc00"><h3>F. Lambda Streams - using Collections</h3></div>  
+        <hr/>
+        <ol>
+            <li>
+                <p>Sort ascending/descending a list:</p>
+                <p><b>#&zwnj;{[21,23,12,444,9,1,45].stream().sorted((i,j)->i-j).toList()}</b> ascending to #{[21,23,12,444,9,1,45].stream().sorted((i,j)->i-j).toList()}</p>
+                <p><b>#&zwnj;{[21,23,12,444,9,1,45].stream().sorted((i,j)->j-i).toList()}</b> descending to #{[21,23,12,444,9,1,45].stream().sorted((i,j)->j-i).toList()}</p>                
+            </li>
+            <li>
+                <p>Create an instance of <i>java.lang.util.Set&lt;Object&gt;</i> without displaying it:</p>
+                <p><b>#&zwnj;{nr_set = {1,2,3,4,5,6,7,8,9,10};''}</b> evaluates to: #{nr_set = {1,2,3,4,5,6,7,8,9,10};''} <i>it was created but not displayed!</i></p>
+                <p>Create an instance of <i>java.lang.util.List&lt;Object&gt;</i> without displaying it:</p>
+                <p><b>#&zwnj;{nr_list = [1,2,3,4,5,6,7,8,9,10];''}</b> evaluates to: #{nr_list = [1,2,3,4,5,6,7,8,9,10];''} <i>it was created but not displayed!</i></p>
+                <p>Create an instance of <i>java.lang.util.Map&lt;Object&gt;</i> without displaying it:</p>
+                <p><b>#&zwnj;{nr_map = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10};''}</b> evaluates to: #{nr_map = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9,"ten":10};''} <i>it was created but not displayed!</i></p>
+            </li>
+            <li>
+                <p>Display even values from <i>nr_set</i> Set:</p>
+                <p><b>#&zwnj;{nr_set.stream().filter(x-> x%2 == 0).toList()}</b> evaluates to: #{nr_set.stream().filter(x-> x%2 == 0).toList()}</p>
+            </li>
+            <li>
+                <p>Display values divisible by <i>5</i> from <i>nr_list</i> List</p>
+                <p><b>#&zwnj;{nr_list.stream().filter(x-> x%5 == 0).toList()}</b> evaluates to: #{nr_list.stream().filter(x-> x%5 == 0).toList()}</p>
+            </li>
+            <li>
+                <p>Display key/value pairs from <i>nr_map</i> Map using <i>ui:repeat</i> and <i>+=</i> operator (NO lambda expression):</p>
+                <p><b>&lt;ui:repeat value="#&zwnj;{nr_map.entrySet().toArray()}" var="t"&gt;
+                        #&zwnj;{t.key += "-" += t.value}
+                        &lt;/ui:repeat&gt;</b> evaluates to:
+                    <ui:repeat value="#{nr_map.entrySet().toArray()}" var="t">
+                        #{t.key += "-" += t.value += " | "}
+                    </ui:repeat>
+                </p>
+            </li>
+            <li>
+                <p>Display the <i>nr_map</i> values using <i>values()</i> method: </p>
+                <p><b>#&zwnj;{nr_map.values().stream().toList()}</b> evaluates to: #{nr_map.values().stream().toList()}</p>
+            </li>
+            <li>
+                <p>Display the <i>nr_map</i> keys using <i>keySet()</i> method: </p> 
+                <p><b>#&zwnj;{nr_map.keySet().stream().toList()}</b> evaluates to: #{nr_map.keySet().stream().toList()}</p>
+            </li>
+            <li>
+                <p>Display the <i>nr_map</i> keys/values using <i>keySet()</i> method: </p> 
+                <p><b>#&zwnj;{nr_map.keySet().stream().map((x)->[x,nr_map.get(x)]).toList()}</b> evaluates to: #{nr_map.keySet().stream().map((x)->[x,nr_map.get(x)]).toList()}</p>
+            </li>
+            <li>
+                <p>Display the <i>nr_map</i> keys/values using <i>entrySet()</i> method: </p>  
+                <p><b>#&zwnj;{nr_map.entrySet().stream().map((x)->[x.key, x.value]).toList()}</b> evaluates to: #{nr_map.entrySet().stream().map((x)->[x.key, x.value]).toList()}</p>
+            </li>   
+            <li>
+                <p>Filter even values from a <i>java.lang.util.List&lt;Object&gt;</i> and convert the result into an array:</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{[132,22,113,4454,345].stream().filter(x-> x%2 == 0).toArray()}</b> evaluates to: 
+                    <ui:repeat value="#{[132,22,113,4454,345].stream().filter(x-> x%2 == 0).toArray()}" var="t">
+                        #{t += " | "}
+                    </ui:repeat> 
+                </p>
+            </li>                                                          
+            <li>
+                <p>Find first item in <i>primes</i> java.util.List:</p>
+                <p><b>#&zwnj;{lambdaBean.primes.stream().findFirst().get()}</b> evaluates to: #{lambdaBean.primes.stream().findFirst().get()}</p>
+            </li>
+            <li>
+                <p>Count number of items in <i>primes</i> java.util.List:</p>
+                <p><b>#&zwnj;{lambdaBean.primes.stream().count()}</b> evaluates to: #{lambdaBean.primes.stream().count()}</p>
+            </li>
+            <li>
+                <p>Sum primes items in <i>primes</i> java.util.List:</p>
+                <p><b>#&zwnj;{lambdaBean.primes.stream().sum()}</b> evaluates to: #{lambdaBean.primes.stream().sum()}</p>
+            </li>
+            <li>
+                <p>Compute minimum item value in <i>primes</i> java.util.List:</p>
+                <p><b>#&zwnj;{lambdaBean.primes.stream().min().get()}</b> evaluates to: #{lambdaBean.primes.stream().min().get()}</p>
+            </li>
+            <li>
+                <p>Compute average value in <i>primes</i> java.util.List:</p>
+                <p><b>#&zwnj;{lambdaBean.primes.stream().average().get()}</b> evaluates to: #{lambdaBean.primes.stream().average().get()}</p>
+            </li>
+            <li>
+                <p>Compute maximum item value in <i>primes</i> java.util.List:</p>
+                <p><b>#&zwnj;{lambdaBean.primes.stream().max().get()}</b> evaluates to: #{lambdaBean.primes.stream().max().get()}</p>               
+            </li>
+            <li>
+                <p>Extract a sublist of <i>primes</i> java.util.List, between start, <i>2</i> and end, <i>6</i>:</p>
+                <p><b>#&zwnj;{(lambdaBean.primes.stream().substream(2,6)).toList()}</b> evaluates to: #{(lambdaBean.primes.stream().substream(2,6)).toList()}</p>
+            </li>
+            <li>
+                <p>Check that none of the <i>languages</i> (java.util.List) items is equal to <i>Cobol</i> text:</p>
+                <p><b>#&zwnj;{(lambdaBean.languages.stream().noneMatch(x->x.equals('Cobol')))}</b> evaluates to: #{(lambdaBean.languages.stream().noneMatch(x->x.equals('Cobol')))}</p>                
+            </li>
+            <li>
+                <p>Check if all <i>orders</i> (java.util.List) items are equal to <i>order#23200</i>:</p>
+                <p><b>#&zwnj;{(lambdaBean.orders.stream().allMatch(x->x.equals('order#23200')))}</b> evaluates to: #{(lambdaBean.orders.stream().allMatch(x->x.equals('order#23200')))}</p>                
+            </li>
+            <li>
+                <p>Check if any item of <i>languages</i> (java.util.List) is equal to <i>Scala</i> text:</p>
+                <p><b>#&zwnj;{(lambdaBean.languages.stream().anyMatch(x->x.equals('Scala')))}</b> evaluates to: #{(lambdaBean.languages.stream().anyMatch(x->x.equals('Scala')))}</p>
+            </li>
+            <li>
+                <p>Check if there are any costs less then <i>1000</i> in <i>costBeforeVAT</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.costBeforeVAT.stream().anyMatch(x->x lt 1000))}</b> evaluates to: #{(lambdaBean.costBeforeVAT.stream().anyMatch(x->x lt 1000))}</p>                
+            </li>                
+            <li>
+                <p>Sort and iterate the <i>languages</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.languages.stream().sorted()).toList()}</b> evaluates to:  #{(lambdaBean.languages.stream().sorted()).toList()}</p>                
+            </li>
+            <li>
+                <p>Display the first three biggest costs in <i>costBeforeVAT</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.costBeforeVAT.stream().sorted((x,y)->y-x).limit(3)).toList()}</b> evaluates to: #{(lambdaBean.costBeforeVAT.stream().sorted((x,y)->y-x).limit(3)).toList()}</p>
+            </li>
+            <li>
+                <p>Iterate distinct items from <i>names</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.names.stream().distinct()).toList()}</b> evaluates to: #{(lambdaBean.names.stream().distinct()).toList()}</p>
+            </li> 
+            <li>
+                <p>Iterate distinct items in uppercase from <i>names</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.names.stream().map((name)->name.toUpperCase()).distinct()).toList()}</b> evaluates to: #{(lambdaBean.names.stream().map((name)->name.toUpperCase()).distinct()).toList()}</p>                
+            </li> 
+            <li>
+                <p>Display all names (allows duplicates) that ends with <i>y</i> in <i>names</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.names.stream().filter((name)->name.endsWith('y'))).toList()}</b> evaluates to: #{(lambdaBean.names.stream().filter((name)->name.endsWith('y'))).toList()}</p>
+            </li>
+            <li>
+                <p>Display all names (allows duplicates) that starts with <i>R</i> in <i>names</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.names.stream().filter((name)->name.startsWith('R'))).toList()}</b> evaluates to: #{(lambdaBean.names.stream().filter((name)->name.startsWith('R'))).toList()}</p>
+            </li>
+            <li>
+                <p>Applying 24% VAT on each cost in <i>costBeforeVAT</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.costBeforeVAT.stream().map((cost) -> cost + .24*cost)).toList()}</b> evaluates to: #{(lambdaBean.costBeforeVAT.stream().map((cost) -> cost + .24*cost)).toList()}</p>
+            </li> 
+            <li>
+                <p>Sort <i>languages</i> (java.util.List) in the order of word length; and then for words of the same length, in alphabetical order:</p>
+                <p><b>#&zwnj;{lambdaBean.languages.stream().sorted((x,y)->(x.length()==y.length()? x.compareTo(y) : x.length() - y.length())).toList()}</b> evaluates to: #{lambdaBean.languages.stream().sorted((x,y)->(x.length()==y.length()? x.compareTo(y) : x.length() - y.length())).toList()}</p>
+            </li>
+            <li>
+                <p>Applying 24% VAT and compute total for costs in <i>costBeforeVAT</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.costBeforeVAT.stream().map((cost) -> cost + .24*cost)).reduce((sum, cost) -> sum + cost).get()}</b> evaluates to: #{(lambdaBean.costBeforeVAT.stream().map((cost) -> cost + .24*cost)).reduce((sum, cost) -> sum + cost).get()}</p>
+            </li>
+            <li>
+                <p>Applying 24% VAT and compute total for costs bigger than <i>1000</i> in <i>costBeforeVAT</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.costBeforeVAT.stream().filter((cost)-> cost gt 1000).map((cost) -> cost + .24*cost)).reduce((sum, cost) -> sum + cost).get()}</b> evaluates to: #{(lambdaBean.costBeforeVAT.stream().filter((cost)-> cost gt 1000).map((cost) -> cost + .24*cost)).reduce((sum, cost) -> sum + cost).get()}</p>
+            </li>
+            <li>
+                <p>List all string with more than 3 characters  <i>toothless</i> (java.util.List):</p>
+                <p><b>#&zwnj;{(lambdaBean.toothless.stream().filter((tooth) -> tooth.length()> 3)).toList()}</b> evaluates to: #{(lambdaBean.toothless.stream().filter((tooth) -> tooth.length()> 3)).toList()}</p> 
+            </li>     
+            <li>
+                <p>Count number of appearances of age <i>28</i> in <i>dataArrayList</i> (java.util.ArrayList):</p> 
+                <p><b>#&zwnj;{playersBean2.dataArrayList.stream().filter((x)->x.age eq 28).toList().size()}</b> evaluates to: #{playersBean2.dataArrayList.stream().filter((x)->x.age eq 28).toList().size()}</p>                
+            </li>
+            <li>
+                <p>Sort ascending and display all players in <i>dataArrayList</i> (java.util.ArrayList) by name:</p>                
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t.player += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{(playersBean2.dataArrayList.stream().sorted((x,y)->x.player.compareTo(y.player))).toList()}</b> evaluates to:
+                    <ui:repeat value="#{(playersBean2.dataArrayList.stream().sorted((x,y)->x.player.compareTo(y.player))).toList()}" var="t">
+                        #{t.player += " | "}
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>Sort ascending and display all players in <i>dataArrayList</i> (java.util.ArrayList) by name using a function:</p>         
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t.player += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{comparing = map->(x,y)->map(x).compareTo(map(y));''}<br/>
+                        #&zwnj;{(playersBean2.dataArrayList.stream().sorted(comparing((t)->t.player))).toList()}</b>evaluates to:
+                        #{comparing = map->(x,y)->map(x).compareTo(map(y));''}
+                    <ui:repeat value="#{(playersBean2.dataArrayList.stream().sorted(comparing((t)->t.player))).toList()}" var="t">
+                        #{t.player += " | "}
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>Sort descending and display all players in <i>dataArrayList</i> (java.util.ArrayList) by name:</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t.player += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{(playersBean2.dataArrayList.stream().sorted((x,y)->y.player.compareTo(x.player))).toList()}</b> evaluates to:
+                    <ui:repeat value="#{(playersBean2.dataArrayList.stream().sorted((x,y)->y.player.compareTo(x.player))).toList()}" var="t">
+                        #{t.player += " | "}
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>List all players older than 30 in <i>dataArrayList</i> (java.util.ArrayList):</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t.player += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{(playersBean2.dataArrayList.stream().filter((p)->p.age ge 30)).toList()}</b> evaluates to:
+                    <ui:repeat value="#{(playersBean2.dataArrayList.stream().filter((p)->p.age ge 30)).toList()}" var="t">
+                        #{t.player += " | "}
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>Extract, by name, all players in <i>dataArrayList</i> (java.util.ArrayList) using <i>map</i> :</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{playersBean2.dataArrayList.stream().map((x)->x.player).toList()}</b> evaluates to:
+                    <ui:repeat value="#{playersBean2.dataArrayList.stream().map((x)->x.player).toList()}" var="t">
+                        #{t += " | "}
+                    </ui:repeat>         
+                </p>
+            </li>
+            <li>
+                <p>Extract players by name, height and weight using <i>map</i> - only players older than <i>27</i> in <i>dataArrayList</i> (java.util.ArrayList):</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t[0] += ' is ' += (t[1]/100) += ' m height and weights ' += t[2] += ' kg'} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{playersBean2.dataArrayList.stream().filter((p)->p.age gt 27).map((p)->[p.player, p.height, p.weight]).toList()}</b> evaluates to:<br/>
+                    <ui:repeat value="#{playersBean2.dataArrayList.stream().filter((p)->p.age gt 27).map((p)->[p.player, p.height, p.weight]).toList()}" var="t">
+                        #{t[0] += ' is ' += (t[1]/100) += ' m height and weights ' += t[2] += ' kg'}<br/>
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>List all players in <i>dataArrayList</i> (java.util.ArrayList) with age between <i>27</i> and <i>29</i>:</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t += " | "} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{(playersBean2.dataArrayList.stream().filter((p)->p.age ge 27).filter((p)->p.age le 29)).toList()}</b> evaluates to:
+                    <ui:repeat value="#{(playersBean2.dataArrayList.stream().filter((p)->p.age ge 27).filter((p)->p.age le 29)).toList()}" var="t">
+                        #{t.player += " | "}
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>List all players in <i>dataArrayList</i> (java.util.ArrayList) born after <i>1985</i>:</p>
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t.player} born in  #&zwnj;{t.born.year + 1900} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{(playersBean2.dataArrayList.stream().filter((p)->(p.born.year+1900) gt 1985)).toList()}</b> evaluates to:<br/>
+                    <ui:repeat value="#{(playersBean2.dataArrayList.stream().filter((p)->(p.born.year+1900) gt 1985)).toList()}" var="t">
+                        #{t.player} born in  #{t.born.year + 1900}<br/>
+                    </ui:repeat> 
+                </p>
+            </li>
+            <li>
+                <p>Display the youngest and the oldest player in <i>dataArrayList</i> (java.util.ArrayList):</p>
+                <p>Youngest: <b>#&zwnj;{playersBean2.dataArrayList.stream().max((x,y)->y.age-x.age).get().player}</b>
+                    Oldest: <b>#&zwnj;{playersBean2.dataArrayList.stream().max((x,y)->x.age-y.age).get().player}</b>evaluates to:<br/>
+                    Youngest: #{playersBean2.dataArrayList.stream().max((x,y)->y.age-x.age).get().player}<br/>
+                    Oldest: #{playersBean2.dataArrayList.stream().max((x,y)->x.age-y.age).get().player}
+                </p>
+            </li>
+            <li>
+                <p>Display the longest player name in <i>dataArrayList</i> (java.util.ArrayList):</p>
+                <p><b>#&zwnj;{playersBean2.dataArrayList.stream().max((x,y)->x.player.length()-(y.player.length())).get().player}</b> evaluates to: #{playersBean2.dataArrayList.stream().max((x,y)->x.player.length()-(y.player.length())).get().player}</p>
+            </li>
+            <li>
+                <p>Display players names from <i>dataHashMap</i> (java.util.Map) using <i>values()</i> method:</p>
+                <p><b>#&zwnj;{playersBean2.dataHashMap.values().stream().map((x)->x.player).toList()}</b> evaluates to: #{playersBean2.dataHashMap.values().stream().map((x)->x.player).toList()}</p>
+            </li>
+            <li>
+                <p>Display players keys from <i>dataHashMap</i> (java.util.Map) using <i>keySet()</i> method:</p>
+                <p><b>#&zwnj;{playersBean2.dataHashMap.keySet().stream().toList()}</b> evaluates to: #{playersBean2.dataHashMap.keySet().stream().toList()}</p>
+            </li>
+            <li>
+                <p>Display players heights from <i>dataHashMap</i> (java.util.Map) using <i>keySet()</i> method:</p> 
+                <p><b>#&zwnj;{playersBean2.dataHashMap.keySet().stream().map((x)->[x,playersBean2.dataHashMap.get(x).height]).toList()}</b> evaluates to: #{playersBean2.dataHashMap.keySet().stream().map((x)->[x,playersBean2.dataHashMap.get(x).height]).toList()}</p>
+            </li>
+            <li>
+                <p>Display players keys/names from <i>dataHashMap</i> (java.util.Map) using <i>entrySet()</i> method:</p> 
+                <p><b>#&zwnj;{playersBean2.dataHashMap.entrySet().stream().map((x)->[x.key, x.value.player]).toList()}</b> evaluates to: #{playersBean2.dataHashMap.entrySet().stream().map((x)->[x.key, x.value.player]).toList()}</p>
+            </li>
+            <li>
+                <p>Display players names sorted by key from <i>dataHashMap</i> (java.util.Map) using <i>entrySet()</i> method:</p> 
+                <p><b>#&zwnj;{playersBean2.dataHashMap.entrySet().stream().sorted((x,y)->x.key-y.key).map((x)->[x.key,x.value.player]).toList()}</b> evaluates to: #{playersBean2.dataHashMap.entrySet().stream().sorted((x,y)->x.key-y.key).map((x)->[x.key,x.value.player]).toList()}</p>
+            </li>
+            <li>
+                <p>Display players names sorted by names from <i>dataHashMap</i> (java.util.Map) using <i>entrySet()</i> method:</p> 
+                <p><b>#&zwnj;{playersBean2.dataHashMap.entrySet().stream().sorted((x,y)->x.value.player.compareTo(y.value.player)).map((x)->[x.key,x.value.player]).toList()}</b> evaluates to:  #{playersBean2.dataHashMap.entrySet().stream().sorted((x,y)->x.value.player.compareTo(y.value.player)).map((x)->[x.key,x.value.player]).toList()}</p>
+            </li>
+            <li>
+                <p>Display players from <i>dataHashMap</i> (java.util.Map), sorted by birthday, using <i>entrySet()</i> method:</p> 
+                <p><b>#&zwnj;{playersBean2.dataHashMap.entrySet().stream().sorted((x,y)->x.value.born.compareTo(y.value.born)).map((x)->[x.key,x.value.player,x.value.born.year+1900]).toList()}</b> evaluates to: #{playersBean2.dataHashMap.entrySet().stream().sorted((x,y)->x.value.born.compareTo(y.value.born)).map((x)->[x.key,x.value.player,x.value.born.year+1900]).toList()}</p>
+            </li>
+            <li>
+                <p>Compute the youngest player from <i>dataHashMap</i> (java.util.Map) using <i>values()</i> method:</p>                 
+                <p><b>#&zwnj;{(playersBean2.dataHashMap.values().stream().max((x,y)->y.age-x.age).get()).player}</b> evaluates to: #{(playersBean2.dataHashMap.values().stream().max((x,y)->y.age-x.age).get()).player}</p>
+            </li>
+            <li>
+                <p>Compute the oldest player from <i>dataHashMap</i> (java.util.Map) using <i>values()</i> method:</p>              
+                <p><b>#&zwnj;{(playersBean2.dataHashMap.values().stream().max((x,y)->x.age-y.age).get()).player}</b> evaluates to: #{(playersBean2.dataHashMap.values().stream().max((x,y)->x.age-y.age).get()).player}</p>
+            </li>
+            <li>
+                <p>Display the players from <i>dataHashMap</i> (java.util.Map) using <i>entrySet()</i> method - only players with odd keys and starting with <i>R</i>:</p> 
+                <p>for display use: <i>&lt;ui:repeat value="below_expression" var="t"&gt; #&zwnj;{t.key += "-" += t.value.player} &lt;/ui:repeat&gt;</i></p>
+                <p><b>#&zwnj;{((playersBean2.dataHashMap.entrySet().stream().filter((x)->x.key%2 ne 0)).filter((x)->x.value.player.startsWith('R'))).toList()}</b> evaluates to:<br/>       
+                    <ui:repeat value="#{((playersBean2.dataHashMap.entrySet().stream().filter((x)->x.key%2 ne 0)).filter((x)->x.value.player.startsWith('R'))).toList()}" var="t">
+                        #{t.key += "-" += t.value.player}<br/>
+                    </ui:repeat>
+                </p>
+            </li>            
+        </ol>
+
+        <div id="flip"></div>        
+        <div id="box-content">
+            <div>
+                <div style="vertical-align:top;text-align:left;">
+                    <h2>Default Collections Content</h2>
+                </div>
+                <p style="text-align:left;padding:0 0 0 2px;">
+                    <ul>
+                        <li style="font-size: 12px;">
+                            <b>costBeforeVAT (List&lt;Integer&gt;)</b><br/>#{lambdaBean.costBeforeVAT}
+                        </li>
+                        <li style="font-size: 12px;">
+                            <b>primes (List&lt;Integer&gt;)</b><br/>#{lambdaBean.primes}
+                        </li>
+                        <li style="font-size: 12px;">
+                            <b>languages (List&lt;String&gt;)</b><br/>#{lambdaBean.languages}
+                        </li>
+                        <li style="font-size: 12px;">
+                            <b>orders (List&lt;String&gt;)</b><br/>#{lambdaBean.orders}
+                        </li>
+                        <li style="font-size: 12px;">
+                            <b>names (List&lt;String&gt;)</b><br/>#{lambdaBean.names}
+                        </li>
+                        <li style="font-size: 12px;">
+                            <b>toothless (List&lt;String&gt;)</b><br/>#{lambdaBean.toothless}
+                        </li>    
+                        <li style="font-size: 12px;">
+                            <b>players (List/Set/Map&lt;Players&gt;)</b>
+                        </li>
+                    </ul>
+                </p>
+            </div>
+
+            <h:dataTable value="#{playersBean2.dataArrayList}" var="t">
+                <h:column>
+                    <f:facet name="header">
+                        Ranking
+                    </f:facet>
+                    #{t.ranking}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Name
+                    </f:facet>
+                    #{t.player}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Age
+                    </f:facet>
+                    #{t.age}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Birthplace
+                    </f:facet>
+                    #{t.birthplace}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Residence
+                    </f:facet>
+                    #{t.residence}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Height (cm)
+                    </f:facet>
+                    #{t.height}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Weight (kg)
+                    </f:facet>
+                    #{t.weight}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Coach
+                    </f:facet>
+                    #{t.coach}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Born
+                    </f:facet>
+                    <h:outputText value="#{t.born}">                
+                        <f:convertDateTime pattern="dd.MM.yyyy" />
+                    </h:outputText>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </h:body>
+</html>
+

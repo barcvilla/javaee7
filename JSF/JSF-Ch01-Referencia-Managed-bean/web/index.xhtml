@@ -109,11 +109,15 @@
         </h:form>
         <br/>
         Official Rafael Nadal racquet: Babolat Aero Pro Drive GT 2013<br/>
+        <!--Mostrando/Ocultando contenido HTML-->
         <h:form>
+            <!--De acuerdo al estado del checkbox set show_racquet property false or true.
+                Dependiendo del estado de esta propiedad renderizamos o no el panelGroup-->
             <h:selectBooleanCheckbox label="Show Image" valueChangeListener="#{playersBean.showHideRacquetPicture}">
                 <f:ajax render="racquetId" />
             </h:selectBooleanCheckbox>
             <h:panelGroup id="racquetId">
+                <!--Facelets ui:fragment permite renderizar el contenido. rendered attribute indica una propiedad boolean-->
                 <ui:fragment rendered="#{playersBean.show_racquet}">
                     <img src="#{resource['images:babolat.jpg']}" width="290" height="174" />
                 </ui:fragment>
