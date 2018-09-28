@@ -93,6 +93,32 @@
         <br/>
         <!--Escribimos la direccion de facebook del jugador si esta no esta vacia-->
         <h:outputText value="Facebook address: #{playersBean.facebook}" rendered="#{!empty playersBean.facebook}" />
+        <br/><br/><b>Show or hide text based on a condition</b><br/>
+        <h:form id="prizeFormId">
+            <h:commandButton value="Show Career Prize Moner">
+                <f:ajax render="rnprizedid" listener="#{playersBean.showPrizeMoney()}"></f:ajax>
+            </h:commandButton>
+            <h:panelGrid id="rnprizedid">
+                <h:outputText value="#{playersBean.prize}" rendered="#{playersBean.show_prize}" >
+                    <f:convertNumber type="currency" currencySymbol="$" />
+                </h:outputText>
+            </h:panelGrid>
+            <h:commandButton value="Hide Carrer Prize Money">
+                <f:ajax render="rnprizedid" listener="#{playersBean.hidePrizeMoney()}" />
+            </h:commandButton>
+        </h:form>
+        <br/>
+        Official Rafael Nadal racquet: Babolat Aero Pro Drive GT 2013<br/>
+        <h:form>
+            <h:selectBooleanCheckbox label="Show Image" valueChangeListener="#{playersBean.showHideRacquetPicture}">
+                <f:ajax render="racquetId" />
+            </h:selectBooleanCheckbox>
+            <h:panelGroup id="racquetId">
+                <ui:fragment rendered="#{playersBean.show_racquet}">
+                    <img src="#{resource['images:babolat.jpg']}" width="290" height="174" />
+                </ui:fragment>
+            </h:panelGroup>
+        </h:form>
     </h:body>
 </html>
 
