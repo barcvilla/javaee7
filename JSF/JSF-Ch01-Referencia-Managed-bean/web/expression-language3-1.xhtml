@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title></title>         
+    </h:head>
+    <h:body>
+        <ui:include src="/lambda.xhtml"/>
+        <h3>Calling 'split_string' - obtain an array from string using a delimiter:</h3>
+        <ui:repeat value="#{split_string('Rafael Nadal, David Ferer, Roger Federer',',')}" var="t">
+            #{t += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'get_count' - count number of items from <i>playersBean3.dataArrayList</i> list:</h3>
+        #{get_count(playersBean3.dataArrayList)}
+
+        <h3>Calling 'get_by_index' - extracting player from position <i>5</i> in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_by_index(playersBean3.dataArrayList, 5).player}
+
+        <h3>Calling 'get_maxim_number' - extracting the oldest player in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_maxim_number(playersBean3.dataArrayList, 'age').player}
+
+        <h3>Calling 'get_maxim_string' - extracting the last player based on alphabetical order in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_maxim_string(playersBean3.dataArrayList, 'player').player}
+
+        <h3>Calling 'get_maxim_string_length' - extracting the player with the longest name in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_maxim_string_length(playersBean3.dataArrayList, 'player').player}
+
+        <h3>Calling 'get_minim_number' - extracting the youngest player in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_minim_number(playersBean3.dataArrayList, 'age').player}
+
+        <h3>Calling 'get_minim_string' - extracting the first player based on alphabetical order in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_minim_string(playersBean3.dataArrayList, 'player').player}
+
+        <h3>Calling 'get_minim_string_length' - extracting the player with the shortest name in <i>playersBean3.dataArrayList</i>:</h3>
+        #{get_minim_string_length(playersBean3.dataArrayList, 'player').player}
+
+        <h3>Calling 'sort_ascending_number' - sort ascending by <i>age</i> the <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{sort_ascending_number(playersBean3.dataArrayList, 'age')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'sort_ascending_string' - sort ascending (alphabetical) by <i>player</i> the <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{sort_ascending_string(playersBean3.dataArrayList, 'player')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'sort_ascending_length' - sort ascending (name length) by <i>player</i> the <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{sort_ascending_length(playersBean3.dataArrayList, 'player')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'sort_descending_number' - sort descending by <i>age</i> the <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{sort_descending_number(playersBean3.dataArrayList, 'age')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'sort_descending_string' - sort descending (alphabetical) by <i>player</i> the <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{sort_descending_string(playersBean3.dataArrayList, 'player')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'sort_descending_length' - sort descending (name length) by <i>player</i> the <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{sort_descending_length(playersBean3.dataArrayList, 'player')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'count_presences_number' - count the number of players that have the <i>age</i> equal to <i>28</i> in <i>playersBean3.dataArrayList</i> list:</h3>
+        #{count_presences_number(playersBean3.dataArrayList, 'age', 28)}
+
+        <h3>Calling 'count_presences_string' - count the number of players that have the <i>age</i> equal to <i>28</i> in <i>playersBean3.dataArrayList</i> list:</h3>
+        #{count_presences_string(playersBean3.dataArrayList, 'player', 'rafael nadal')}
+
+        <h3>Calling 'get_unique_number' - get players with unique <i>age</i> in <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{get_unique_number(playersBean3.dataArrayList, 'age')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'get_unique_string' - get players with unique names in <i>playersBean3.dataArrayList</i> list:</h3>
+        <ui:repeat value="#{get_unique_string(playersBean3.dataArrayList, 'player')}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'get_list_single_map' - returns a list containing only players names:</h3>
+        <ui:repeat value="#{get_list_single_map(playersBean3.dataArrayList, 'player')}" var="t">
+            #{t += " | "}
+        </ui:repeat>
+
+        <h3>Calling 'get_sublist' - get the sublist between <i>2</i> and <i>7</i> indexes from <i>playersBean3.dataArrayList</i>:</h3>
+        <ui:repeat value="#{get_sublist(playersBean3.dataArrayList, 2, 7)}" var="t">
+            #{t.player += " | "}
+        </ui:repeat>
+    </h:body>
+</html>
+

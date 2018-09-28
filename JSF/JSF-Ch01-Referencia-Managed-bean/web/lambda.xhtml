@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:body>
+        <ui:composition>
+            #{
+                split_string = (str, separator)->str.split(separator);
+                get_count = list->list.stream().count();
+                get_by_index = (list, position)->list[position];
+                get_maxim_number = (list, property)->list.stream().max((x,y)->x[property]-y[property]).get();
+                get_maxim_string = (list, property)->list.stream().max((x,y)->x[property].compareTo(y[property])).get();
+                get_maxim_string_length = (list, property)->list.stream().max((x,y)->x[property].length()-(y[property].length())).get();
+                get_minim_number = (list, property)->list.stream().max((x,y)->y[property]-x[property]).get();
+                get_minim_string = (list, property)->list.stream().max((x,y)->y[property].compareTo(x[property])).get();
+                get_minim_string_length = (list, property)->list.stream().max((x,y)->y[property].length()-(x[property].length())).get();
+                sort_ascending_number = (list, property)->list.stream().sorted((x,y)->x[property]-y[property]).toList();
+                sort_ascending_string = (list, property)->list.stream().sorted((x,y)->x[property].compareTo(y[property])).toList();
+                sort_ascending_length = (list, property)->list.stream().sorted((x,y)->x[property].length()-(y[property].length())).toList();
+                sort_descending_number = (list, property)->list.stream().sorted((x,y)->y[property]-x[property]).toList();
+                sort_descending_string = (list, property)->list.stream().sorted((x,y)->y[property].compareTo(x[property])).toList();
+                sort_descending_length = (list, property)->list.stream().sorted((x,y)->y[property].length()-(x[property].length())).toList();
+                count_presences_number = (list, property, value)->list.stream().filter((x)->x[property] eq value).toList().size();
+                count_presences_string = (list, property, value)->list.stream().filter((x)->x[property].equalsIgnoreCase(value)).toList().size();
+                get_unique_number = (list, property)->list.stream().filter((x)->count_presences_number(list,property,x[property]) eq 1).toList();
+                get_unique_string = (list, property)->list.stream().filter((x)->count_presences_string(list,property,x[property]) eq 1).toList();
+                get_list_single_map = (list, property)->list.stream().map((x)->x[property]).toList();
+                get_sublist = (list, left, right)->list.stream().substream(left, right).toList();''
+            }
+        </ui:composition>
+    </h:body>
+</html>
