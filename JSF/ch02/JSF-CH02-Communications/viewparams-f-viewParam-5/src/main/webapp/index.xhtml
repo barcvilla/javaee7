@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <!-- http://localhost:8080/ch2_5/?playernameparam=Rafael&playersurnameparam=Nadal -->
+    <!--Obtenemos el valor de los request parameters desde la URL
+        JSF enlaza los valores de estos parametros con con las propiedades del Managed Bean (palyerName, playerSurname)
+        mediante de un llamado automatico a los metodos setPlayerName, setPlayerSurname del bean (estos metodos se llaman
+        si solo si pasamos los request parameters por la URL)-->
+    <f:metadata>
+        <f:viewParam name="playernameparam" value="#{playersBean.playerName}"/>            
+        <f:viewParam name="playersurnameparam" value="#{playersBean.playerSurname}"/> 
+    </f:metadata>
+    <h:head>
+        <title>Working with View Param</title>
+    </h:head>   
+    <h:body>                  
+        <!--Se muestran el valor de las propiedades del bean, internamete JSF llama a getPlayerName, getPlayerSurname-->
+        You requested name: <h:outputText value="#{playersBean.playerName}"/><br/>
+        You requested surname: <h:outputText value="#{playersBean.playerSurname}"/>          
+    </h:body>
+</html>
