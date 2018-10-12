@@ -17,5 +17,8 @@
     <module>viewparams-f-viewparam-7</module>
     <module>viewparams-f-viewparam-9</module>
     <module>viewparams-f-viewparam-validator-10</module>
+    <module>viewparams-f-viewparam-converter-29</module>
+    <module>viewparams-f-viewparam-preRenderView-8</module>
+    <module>viewparams-f-viewparam-preRenderView-28</module>
   </modules>
 </project>
