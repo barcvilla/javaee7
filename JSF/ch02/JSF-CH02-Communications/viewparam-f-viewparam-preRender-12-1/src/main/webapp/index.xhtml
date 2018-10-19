@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:metadata>
+        <f:viewParam name="playernameparam" value="#{playersBean.playerName}" />
+        <f:viewParam name="playersurnameparam" value="#{playersBean.playerSurname}" />
+        <f:event type="preRenderView" listener="#{playersBean.init()}" />
+    </f:metadata>
+    <head>
+        <title>JSF Communications</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        You requested name: <h:outputText value="#{playersBean.playerName}" /><br/>
+        You requested surname: <h:outputText value="#{playersBean.playerSurname}" /><br/>
+        
+        <h:form>
+            <h:commandButton value="User Action" action="#{playersBean.userAction()}" />
+        </h:form>
+    </body>
+</html>

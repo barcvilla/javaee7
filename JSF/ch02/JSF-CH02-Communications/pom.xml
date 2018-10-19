@@ -20,5 +20,8 @@
     <module>viewparams-f-viewparam-converter-29</module>
     <module>viewparams-f-viewparam-preRenderView-8</module>
     <module>viewparams-f-viewparam-preRenderView-28</module>
+    <module>viewAction-f-viewAction-validator-11</module>
+    <module>viewparam-f-viewparam-preRender-12-1</module>
+    <module>viewAction-f-viewAction-12-2</module>
   </modules>
 </project>
