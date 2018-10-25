@@ -23,5 +23,7 @@
     <module>viewAction-f-viewAction-validator-11</module>
     <module>viewparam-f-viewparam-preRender-12-1</module>
     <module>viewAction-f-viewAction-12-2</module>
+    <module>passing-attributes-14</module>
+    <module>passing-attributes-binding-23</module>
   </modules>
 </project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1><p>Passing Attributes</p></h1>
+        <h:form>
+            <p>Click to send name, 'Rafael' surname, 'Nadal', with f:attribute</p>
+            <h:commandButton actionListener="#{playersBean.parametersAction}">
+                <f:attribute name="value" value="Send Rafel Nadal" />
+                <f:attribute id="playerName" name="playerNameAttr" value="Rafael" />
+                <f:attribute id="playerSurname" name="playerSurnameAttr" value="Nadal" />
+            </h:commandButton>
+        </h:form>
+    </h:body>
+</html>
