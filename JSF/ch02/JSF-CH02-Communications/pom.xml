@@ -25,5 +25,6 @@
     <module>viewAction-f-viewAction-12-2</module>
     <module>passing-attributes-14</module>
     <module>passing-attributes-binding-23</module>
+    <module>setting-property-action-listener-16</module>
   </modules>
 </project>
